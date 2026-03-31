@@ -1,0 +1,16 @@
+# Next.js
+shop-app/.next/
+shop-app/node_modules/
+shop-app/.env.local
+shop-app/.env
+
+# Python
+scoring-service/__pycache__/
+scoring-service/*.pyc
+scoring-service/.env
+scoring-service/venv/
+scoring-service/.venv/
+
+# Misc
+.DS_Store
+*.zip
