@@ -11,7 +11,7 @@ export async function POST() {
       .from("orders")
       .select(`
         order_id, order_datetime, order_total, payment_method, device_type,
-        ip_country, risk_score,
+        ip_country, risk_score, predicted_fraud, confirmed_fraud,
         customers (customer_id, full_name, city, state, loyalty_tier),
         shipments (carrier, shipping_method, promised_days, actual_days, late_delivery)
       `)

@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/warehouse/cron-scoring",
+      "schedule": "0 9 * * *"
+    }
+  ]
+}

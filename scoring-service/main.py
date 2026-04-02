@@ -162,12 +162,14 @@ def score_orders():
 
     engineered_df = engineered_df.copy()
     engineered_df["fraud_score"] = np.round(proba, 6)
+    engineered_df["predicted_fraud"] = (proba >= 0.5).astype(int)
 
     # Write scores back to Supabase orders table
     scored_at = datetime.now(timezone.utc).isoformat()
     for _, row in engineered_df.iterrows():
         supabase.table("orders").update({
             "risk_score": float(row["fraud_score"]),
+            "predicted_fraud": int(row["predicted_fraud"]),
         }).eq("order_id", int(row["order_id"])).execute()
 
     # Return top 50 highest-risk orders
