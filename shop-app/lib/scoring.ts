@@ -31,12 +31,13 @@ export async function runScoringJob(): Promise<void> {
   if (error) throw new Error(error.message);
 
   // Update in batches to avoid rate limits
-  const updates = (orders ?? []).map((o) =>
-    supabaseAdmin
+  const updates = (orders ?? []).map((o) => {
+    const risk_score = parseFloat((Math.random() * 100).toFixed(2));
+    return supabaseAdmin
       .from("orders")
-      .update({ risk_score: parseFloat((Math.random() * 100).toFixed(2)) })
-      .eq("order_id", o.order_id)
-  );
+      .update({ risk_score, predicted_fraud: risk_score >= 50 ? 1 : 0 })
+      .eq("order_id", o.order_id);
+  });
 
   await Promise.all(updates);
 }
